@@ -1,0 +1,171 @@
+\documentclass{lecturenote}
+% \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{etex}
+\usepackage{paralist}
+\usepackage{enumitem}
+\usepackage{makeidx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{empheq}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage[ngerman]{babel}
+% \usepackage{romannum}
+\usepackage{tabularx}
+\let\checkmark\relax
+\usepackage{dingbat}
+\usepackage[misc]{ifsym}
+\usepackage{soul}% for underlining
+\usepackage{cancel}% for cancellign matheqs
+
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shadows} %
+\usepackage[siunitx,european]{circuitikz}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage{trsym}
+\usepackage[
+nonumberlist, %keine Seitenzahlen anzeigen
+acronym,      %ein Abkürzungsverzeichnis erstellen
+toc,          %Einträge im Inhaltsverzeichnis
+section]      %im Inhaltsverzeichnis auf section-Ebene erscheinen
+{glossaries}
+\let\acs\gls
+% Index
+\usepackage{makeidx}
+\makeindex
+\hypersetup{linkcolor=black}
+\usepackage{environ}
+% Theoreme/Definitionen/...
+% \usepackage{ntheorem}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\newcommand{\Ohm}{\Omega}
+\newcommand{\eq}{=}
+\newcommand{\komma}{,}
+\newcommand{\cn}[1]{\underline{#1}}
+\renewcommand{\Re}[1]{\operatorname{Re}\left\{#1\right\}}
+\renewcommand{\Im}[1]{\operatorname{Im}\left\{#1\right\}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\diff}{\,\mathrm{d}}
+\newcommand{\LT}[1]{\mathfrak{L}\left\{#1\right\}}
+\DeclareMathOperator{\grad}{grad}
+\let\angle\sphericalangle
+
+% Glossary settings
+\deftranslation[to=ngerman]{Acronyms}{Abkürzungsverzeichnis}
+\newglossary[slg]{symbolslist}{syi}{syg}{Symbolverzeichnis}
+
+% Color settings
+\definecolor{emphlight}{rgb}{0.8,0.85,1}
+% cmds
+\newcommand\hinweis[2]{%
+  \noindent%
+  \fcolorbox{tuWhite}{tuLightGray!50}{%
+  \begin{minipage}[t]{0.05\linewidth}%
+    \vspace{0pt}%
+    \centering%
+    #1%
+  \end{minipage}%
+  \hspace*{0.01\linewidth}%
+  \begin{minipage}[t]{0.94\linewidth}%
+    \vspace{0pt}
+    \itshape%
+    #2%
+  \end{minipage}%
+  }%
+  \medskip%
+}
+
+\newcommand\klausurhinweis[1]{%
+  \hinweis{\large\PaperPortrait}{#1}
+}
+
+\newcommand\infohinweis[1]{%
+  \hinweis{\Large\bfseries \textcircled{\large i}}{#1}
+}
+
+% colored underline
+\newsavebox\MBox
+\newcommand\cul[2][red]{{\sbox\MBox{$#2$}%
+  \rlap{\usebox\MBox}\color{#1}\rule[-1.2\dp\MBox]{\wd\MBox}{0.5pt}}}
+
+\newsavebox\skillbox
+\newcommand\skilltitle{Skills}
+\NewEnviron{skills}{%
+  \begin{tikzpicture}[every shadow/.style={fill=black!30}]
+  \def\firstnode{
+  \node[drop shadow,fill=gray!20] (box) {
+  \begin{minipage}{\textwidth}
+  \begin{list}{\textcolor{tuGreen}{\checkmark}}{}
+    \BODY
+  \end{list}
+  \end{minipage}
+  };}
+  \firstnode
+  \node[fill=gray!40, yshift=-1, drop shadow, anchor=south west] at (box.north west) {\skilltitle};
+  \firstnode
+  \end{tikzpicture}
+}
+
+\newcommand\skillref[2]{\hyperref[skill:#1]{#2}}
+\newcommand\skilllabel[1]{\label{skill:#1}}
+
+\newcommand\Index[1]{\index{#1}}
+% \newcommand\dh{\mbox{d.\,h.}\xspace}
+
+% Titlepage settings
+\course{WuN-Tutorium}
+\author{Lennert van derWall\\In \LaTeX\
+  von Enrico Jörns und Sebastian Willenborg}
+% \semester{WS 2010/2011}
+
+\makeindex
+\makeglossaries
+
+\begin{document}
+
+% \addtokomafont{chapter}{\LARGE}
+
+\input{glossar}
+\input{symbole}
+\input{akronyme}
+
+\maketitle
+\tableofcontents
+\newpage
+
+
+\include{content/frequenzgang} % FG/ÜF
+\include{content/asympstab} % asympt. Stabilität
+\include{content/anfangswerte} % Anfangswerte
+\include{content/hez} % HEZ
+\include{content/laplace}
+\include{content/faltung}
+\include{content/transistor}
+\include{content/vierpol}
+\include{content/quellenverschiebung}
+% 
+\include{content/komplexePBZ}
+
+% Anhang
+\appendix
+
+\include{content/trafotabelle}
+
+\chapter{Verzeichnisse}
+%Glossar ausgeben
+\printglossary[style=altlist,title=Glossar]
+%Abkürzungen ausgeben
+\printglossary[type=\acronymtype,style=long]
+%Symbole ausgeben
+\printglossary[type=symbolslist,style=long]
+%Index
+\printindex
+\end{document}

@@ -1,0 +1,56 @@
+\chapter{Faltung im Zeitbereich ("`Weltformel"')}
+\Index{Faltung}\Index{Weltformel}
+
+\begin{skills}
+  \item Polynomdivision
+  \item Partialbruchzerlegung
+\end{skills}
+
+
+\begin{enumerate}
+  \item Voraussetzung dafür:
+    \begin{enumerate}
+      \item Darf man mit Faltung rechnen? Beweisen!
+        % rz/ez!?
+      \item Ist $e(t)$ ein \acs{PWL}-Signal?
+      \item Hat $\cn H(\cn s)$ nur einfache, reelle Pole? (Nicht notwendig)
+    \end{enumerate}
+
+  \item Ist c) erfüllt: Berechne $a_\delta(t) = \mathrm{L}^{-1}\{\cn H(\cn s)\}$
+    mit Poly-Div. / PBZ
+
+  \item Definiere Hilfsfunktion $g_1(t)$, $g_2(t)$:
+    \begin{description}
+      \item[Ist c) erfüllt:]
+        \begin{align*}
+          g_1(t) &:= \left(\Theta(t')\ast a_\delta(t')\right)(t)\\
+            & \text{ mit } (\Theta(t')\ast\Theta(t')\cdot e^{-at})(t)
+            = \Theta(t)\cdot\frac{1}{a} \left(1-e^{-at}\right)\\
+          g_2(t) &:= \left(\Theta(t')\cdot t'\ast a_\delta(t')\right)(t)\\
+            & \text{ mit } (\Theta(t')\cdot t'\ast\Theta(t')\cdot e^{-at})(t)
+            = \Theta(t)\cdot\frac{1}{a^2} \left(at-(1- e^{-at})\right)
+        \end{align*}
+        \klausurhinweis{Die benötigten Hilfsfaltungen müssen (inkl. Herleitung) einmal hingeschrieben werden!}
+      \item[sonst:]
+        \[
+        \begin{aligned}
+          g_1(t) &:= \mathfrak{L}^{-1}\left\{\cn H(\cn s)
+            \cdot \frac{1}{\cn s}\right\}(t)\\
+          g_2(t) &:= \mathfrak{L}^{-1}\left\{\cn H(\cn s)
+            \cdot \frac{1}{\cn s^2}\right\}(t)
+        \end{aligned}
+        \qquad
+        \text{ mit Polynomdivision\,/\,PBZ}
+        \]
+    \end{description}
+    \infohinweis{$g_1(t) = a_\Theta(t)$ nennt man auch \emph{Sprungantwort!}}
+
+  \item Berechne $a(t)$ per Superposition mit der Faltung:
+    \[
+      a(t) = (e(t')\ast a_\delta(t'))(t)
+        \stackrel{\text{%
+          \begin{minipage}{9em}Linearität +\\Verschiebungssatz\end{minipage}
+        }}{=}
+      \sum_{k=1}^n E_{1k}\cdot g_1(t-T_k) + E_{2k}\cdot g_2(t-T_k)
+    \]
+\end{enumerate}

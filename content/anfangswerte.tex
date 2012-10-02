@@ -1,0 +1,120 @@
+% \chapter{19.11.2010}
+
+\chapter{Anfangswerte}
+
+\emph{Gibt es bei $t=t_s$ inkonsistente AW?}
+
+$\to$ Das bedeutet, man kann AW vorgeben, die beim Schalten \emph{NICHT}
+stetig übernommen werden.
+Das bedeutet aber nur, dass es mind. einen AW-Vektor gibt, der beim Schalten
+nicht stetig übernommen wird.
+
+\paragraph{Beispiel:}\hfill\\
+
+\begin{minipage}{0.5\textwidth}
+\begin{circuitikz}
+  \draw (1,0)
+    to[short,o-] (0,0)
+    -- (0,-1)
+    to[V=$V_0$] (0,-4)
+    -- (4,-4)
+    to[C=$C$, v=$u_{C2}(t)$] (4,-2)
+    to[C=$C$, v=$u_{C1}(t)$] (4,0)
+    to[short,-o] (2,0);
+  \draw (1,0) -- +(30:1);
+\end{circuitikz}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+  \begin{itemize}
+    \item Bei $u_{C_1}(t_s^-) = u_{C_2}(t_s^-) = 2V$, $V_0=5V$ ist die MGL
+      für $t>t_s$ nicht erfüllt.\\
+      $\Rightarrow$ $\underbrace{u_{C_1}(t_s^-)}_{\text{\parbox{1.75cm}{direkt \emph{vor} dem Schalten}}}
+      \neq  \underbrace{u_{C_1}(t_s^+)}_{\text{\parbox{1.75cm}{direkt \emph{nach} dem Schalten}}}$
+    \item Bei $u_{C_1}(t_s^-) = u_{C_2}(t_s^-) = 2,5V$, $V_0=5V$ ist die MGL
+      für $t>t_s$ erfüllt.\\
+      $\Rightarrow$ $u_{C_1}(t_s^-) = u_{C_1}(t_s^+) = 2,5V$\\
+      Dies gilt aber eben \emph{NICHT} für \emph{alle} AW!
+  \end{itemize}
+\end{minipage}\medskip
+
+
+
+\begin{description}
+  \item[Vorgehensweise:]\hfill
+    \begin{itemize}
+      \item $n_A$, $n_R$ bestimmen für $t>t_s$
+      \item zu beweisen: $n_R=0$ für $t>t_s$
+        $\Rightarrow$ es gibt keine inkonsistenten AW bei $t=t_s$!\\
+        ($n_R>0$: es gibt inkonsistente AW!)
+        
+      \begin{description}
+        \item[Wiederholung]
+          Gibt es keine gesteuerten Quellen im NWM, kann es nur 2 Typen von 
+          zustandsreduzierenden Gleichungen geben:
+          \begin{enumerate}
+            \item MGL nur aus $C_s$ und/oder festen SPQ
+            \item SGL nur aus $L_s$ und/oder festen STQ
+          \end{enumerate}
+      \end{description}
+    \end{itemize}
+\end{description}
+
+
+\paragraph{Weiteres Beispiel}
+
+[BEISPIEL]% TODO
+
+\paragraph{Bsp zur diffbaren Variable}
+
+[BEISPIEL]% TODO
+
+\paragraph{Bei gesteuerten Quellen (wieder für $t>t_s$)}
+
+\begin{itemize}
+  \item $n_A$, $n_R$ bestimmen, wenn $n_R>0$: fertig!
+  \item $\cn{H}(j\omega)$,
+    $\cn{H}(\cn{s}) = \frac{\cn{P}(\cn{s})}{\cn{Q}(\cn{s})}$ aufstellen.\medskip
+    
+    $\cn{P}(\cn{s})$, $\cn{Q}(\cn{s})$ teilerfremd? Wenn nein: Polydiv!
+  \item $n_A = \grad{(\cn{Q}(\cn{s}))}$? Wenn ja: fertig, da aus
+    $n_A  = \grad{(\cn{Q}(\cn{s}))}$ folgt: $n=n_A$, $n_R=0$\\
+    $\Rightarrow$ keine zustandsreduzierende Gleichung für $t>t_s$\\
+    $\Rightarrow$ keine inkonsistenten AW bei $t=t_s$!
+\end{itemize}
+
+
+\klausurhinweis{
+  Wenn sowohl Beweis für asymptotische Stabilität als auch
+  für inkonsistente Anfangswerte verlangt wird:
+  \begin{enumerate}
+    \item Stabilität beweisen
+    \item Mit den Ergebnissen argumentieren, ob es inkonsistente AW gibt oder nicht!
+  \end{enumerate}
+}
+
+\section{Vorgehensweise Anfangswerte}
+
+\begin{enumerate}
+  \item Sind alle AW $x(t_s^+)$ gegeben
+    (z.\,B. $u_C(t)$, $i_L(t)$, alle differenzierbare Variable
+    für die ein AW vorgegeben werden kann)
+  \item Sind alle AW für $t=t_s^-$ vorgegeben?
+  \item Prüfe: ist das NWM für $t=t_s^-$ eingeschwungen, d.\,h.
+    \begin{enumerate}
+      \item beweise: Asymptotische Stabilität!
+      \item Wartebedingung
+    \end{enumerate}
+  \item Das NWM ist eingeschwungen:
+    \begin{itemize}
+      \item Harmonisch eingeschwungener Zustand (HEZ)\\
+        $\Rightarrow$ KWSR
+      \item DC-Eingeschwungener Zustand (DC-EZ)\\
+        $\Rightarrow$ DC-ESB
+      \item Allgemein EZ\\
+        $\Rightarrow$ Faltung\\
+        Bsp.: Rechkeck-, Dreieck-Impuls,
+    \end{itemize}
+\end{enumerate}
+
+
+

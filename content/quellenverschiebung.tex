@@ -1,0 +1,290 @@
+% \chapter{11.02.2011}
+
+\chapter{Quellenverschiebung}
+
+\emph{Wann muss man Quellen verschieben?}
+
+\begin{minipage}{0.5\textwidth}
+\quad\begin{tabular}{@{}ll}
+  Maschen-$\cn{Z}$-Verfahren:       & STQ \\
+  Schnittmengen-$\cn{Y}$-Verfahren: & SPQ \\
+  Knoten-$\cn{Y}$-Verfahren:        & SPQ
+\end{tabular}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+  aber \emph{nur}, wenn sie allein in einem Zweig vorkommen
+  (d.h. \emph{ideale} Quellen)! Sonst: Quellensubstitution
+\end{minipage}
+
+\emph{Wie verschiebt man?}
+
+\begin{minipage}{0.5\textwidth}
+\quad\begin{tabular}{@{}l}SPQ\\STQ\end{tabular}verschiebt
+man in \begin{tabular}{@{}l@{}}Schnittmengen\\Maschen\end{tabular}\,!
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{tabular}{@{$\to$\,}l}
+  \emph{Nur} die Zweigspannungen ändern sich!\\
+  \emph{Nur} die Zweigströme ändern sich!\\
+\end{tabular}
+\end{minipage}
+
+
+\emph{Welche Gleichungen muss man aufstellen?}
+
+\begin{description}
+  \item[Transforamationsgleichungen:]
+    Neue Zweiggrößen (gestrichene Größen) durch die alten Zweiggrößen
+    oder/und feste Quellen ausdrücken
+    
+    $\Rightarrow$ 1 Gl. pro Zweig, in den man eine Quelle hinein verschiebt.
+  
+  \item[Rücktransformationsgleichungen:]
+    Alte Zweiggrößen durch neue Zweiggrößen und/oder feste Quellen ausdrücken,
+    $\Rightarrow$ Trafo-Gleichungen umstellen!
+    
+    $\Rightarrow$ 1 Gl. pro Zweig, in den man eine Quelle hinein verschiebt.
+    
+  \item[Rückgewinnungsgleichungen:]
+    Zweigspannung und -strom der Quelle berechnen, die man verschiebt.
+    
+    \begin{tabularx}{\textwidth}{lX}
+      Bei SPQ: & Zweigspannung $\stackrel{!}{=}$ Quellspannung,\newline
+        Zweigstrom durch SGL in die man verschiebt darstellen!\\
+      Bei STQ: & Zweigstrom $\stackrel{!}{=}$ Quellstrom,\newline
+        Zweigspannung durch MGL in die man verschiebt darstellen! 
+    \end{tabularx}
+    $\Rightarrow$ 2 Gleichungen
+    
+    \klausurhinweis{%
+      Die ist notwendig, wenn in der Aufgabe steht:
+        \glqq Geben Sie die vollständigen Quellentransformationsbeziehungen an\grqq.
+      Sonst müssen nur die Gleichungen aufgeschrieben werden, die man später braucht
+      (Steuergrößen/zu berechnende Größen).
+    }
+\end{description}
+\paragraph{Bemerkungen}
+\begin{itemize}
+  \item
+Steuerungen transformieren mit Rücktrafo-/Rückgewinnungs-Gl., falls nötig
+
+Evtl.: Steuerungstransformation erst einsetzen, wenn man die Matrix schon
+aufgestellt hat!
+
+%   \item
+% Man muss \begin{tabular}{l}SPQ\\STQ\end{tabular} beim
+% \begin{tabular}{l}Schnittmengen-\\Maschenimpedanz-\end{tabular}Verfahren
+% verschieben, wenn sie in einem Zweig allein ($\rightarrow$ ideal) vorkommen:
+% %%%
+% bzw.
+% %%%
+% , gesteuert oder ungesteuert
+
+%   \item
+% Alle Trafo-/Rücktrafo, Rückgewinnungsgl: "`Stellen Sie die vollst.
+% Quellentrafos auf!"'
+\end{itemize}
+
+
+\section{SPQ-Verschiebung}
+
+\begin{minipage}{0.5\textwidth}
+\begin{circuitikz}
+  \draw(0,0.5)
+      node[draw,circle,inner sep=0.5mm,blue] [above left = 0.3] {$1$}
+    to[short,o-,i_=$\cn{I}_{V}(\cn{s})$] (0,0)
+    to[V,v=$\cn{V}(\cn{s})$] (0,-2)
+    to[short,-*] (0,-2.5)
+      node[draw,circle,inner sep=0.5mm,blue] [left = 0.7] {$2$}
+    to[short] (0,-3)
+    to[R=$R_2$] (0,-5)
+    to[short,-o,i_=$\cn{I}_{R_2}(\cn{s})$] (0,-5.5)
+      node[draw,circle,inner sep=0.5mm,blue] [below left = 0.3] {$3$}
+    (0,-2.5)
+    to[short] (0.5,-2.5)
+    to[R,l_=$R_1$] (2.5,-2.5)
+    to[short,-o,i_=$\cn{I}_{R_1}(\cn{s})$] (3.0,-2.5)
+      node[draw,circle,inner sep=0.5mm,blue] [above right = 0.3] {$4$}
+    (-0.3,0) to[open,v_>=$\cn{U}_{V}(\cn{s})$] (-0.3,-2.5)
+    (-0.3,-2.5) to[open,v_>=$\cn{U}_{R_2}(\cn{s})$] (-0.3,-5.5)
+    (0,-2.2) to[open,v^>=$\cn{U}_{R_1}(\cn{s})$] (3.0,-2.2)
+    ;
+  \draw
+    (0,-2.5)[dashed,blue] circle (0.5);
+  \draw
+    ($(0,-2.5)+(50:0.5)$) [dashed,blue,<-,>=latex] -- +(50:0.5);
+
+  \begin{scope}[yshift=-7.5cm]
+  \draw(0,0) 
+      node[draw,circle,inner sep=0.5mm,blue] [above = 0.7] {$2$}
+      node[draw,circle,inner sep=0.5mm,blue] [left = 0.7] {$1$}
+    to[short,*-] (0,-0.5)
+    to[V_=$\cn{V}(\cn{s})$] (0,-2.5)
+    to[R=$R_2$] (0,-4.5)
+    to[short,-o,i_=$\cn{I}_{R_2}(\cn{s})$] (0,-5)
+      node[draw,circle,inner sep=0.5mm,blue] [below left = 0.3] {$3$}
+    (0,0)
+    to[short] (0.5,0)
+    to[V_=$\cn{V}(\cn{s})$] (2.5,0)
+    to[R=$R_1$] (4.5,0)
+    to[short,-o,i_=$\cn{I}_{R_1}(\cn{s})$] (5,0)
+      node[draw,circle,inner sep=0.5mm,blue] [above right = 0.3] {$4$}
+    (0,0.7)
+    to[open,v^>=$\cn{U}_{R_1}'(\cn{s})$] (5,0.7)
+    (0.7,0)
+    to[open,v^>=$\cn{U}_{R_2}'(\cn{s})$] (0.7,-5);
+  \draw
+    (0,0)[dashed,blue] circle (0.5);
+  \draw
+    ($(0,0)+(50:0.5)$) [dashed,blue,<-,>=latex] -- +(50:0.5);
+  \end{scope}
+\end{circuitikz}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{enumerate}[label=\arabic*.)]
+  \item
+    Schnittmenge neu hinzeichnen, alle Zweiggrößen einzeichnen,
+    ggf. selbst die Richtung definieren
+  \item
+    Schnittmengenrichtung so wählen, dass sie in Richtung der SPQ zeigt (Hilfsmittel)
+  \item
+    SPQ verschieben:
+    \begin{itemize}
+      \item Alte SPQ $\to$ Kurzschluss\\
+        $\to$ Betreffende Knoten fallen zusammen
+      \item Neue SPQ in alle anderen Zweige der Schnittmenge so einzeichnen, dass
+        sie der Schnittmengenrichtung \emph{entgegen} gerichtet sind
+      \item Neue Zweigspannungen einführen.
+        Die Zweigströme ändern sich \emph{nicht}!
+    \end{itemize}
+\end{enumerate}
+\end{minipage}
+
+\paragraph{Trafo-Gl.:}
+\[\begin{pmatrix}
+    \cn{U}_{R_1}' \\
+    \cn{U}_{R_2}'
+  \end{pmatrix}(\cn{s})
+  = \begin{pmatrix}
+      \cn{U}_{R_1} \\
+      \cn{U}_{R_2}
+    \end{pmatrix}(\cn{s})
+    +\cn{V}(\cn{s})
+    \begin{pmatrix}1\\1\end{pmatrix}
+\]
+
+\paragraph{Rück-Trafo:}
+\[\begin{pmatrix}
+    \cn{U}_{R_1} \\
+    \cn{U}_{R_2}
+  \end{pmatrix}(\cn{s})
+  = \begin{pmatrix}
+      \cn{U}_{R_1}' \\
+      \cn{U}_{R_2}'
+    \end{pmatrix}(\cn{s})
+    -\cn{V}(\cn{s})
+    \begin{pmatrix}1\\1\end{pmatrix}\]
+
+\paragraph{Rückgewinnungs-Gl.:}
+\[\begin{aligned}
+  \cn{U}_V(\cn{s})  &= \cn{V}(\cn{s}) \\
+  \cn{I}_V(\cn{s})  &= \cn{I}_{R_1}(\cn{s}) + \cn{I}_{R_2}(\cn{s})
+\end{aligned}\]
+
+
+\section{STQ-Verschiebung}
+
+\begin{minipage}{0.5\textwidth}
+\begin{circuitikz}
+  \draw(0,0) 
+      node[draw,circle,inner sep=0.5mm,blue] [above left = 0.3] {$1$}
+    to[short,o-] (0.5,0)
+    to[R,l_=$\cn Z_1$] (2.5,0)
+    to[short,-*,i=$\cn I_{Z_1}(\cn{s})$] (3,0)
+      node[draw,circle,inner sep=0.5mm,blue] [above right = 0.3] {$2$}
+    to[short] (3,-0.5)
+    to[R,l_=$\cn Z_2$] (3,-2.5)
+    to[short,i<=$\cn I_{Z_2}(\cn{s})$] (3,-3.0)
+    to[short,-*] (0,-3.0)
+      node[draw,circle,inner sep=0.5mm,blue] [below left = 0.3] {$3$}
+    to[short,i=$\cn I_J(\cn{s})$] (0,-2.5)
+    to[I_=$\cn J$] (0,-0.5)
+    to[short] (0,0)
+    (0,0.3) to[open,v^>=$\cn{U}_{Z_1}(\cn{s})$] (3,0.3)
+    (3.3,0) to[open,v^<=$\cn{U}_{Z_2}(\cn{s})$] (3.3,-3)
+    (-0.3,0) to[open,v_<=$\cn{U}_{J}(\cn{s})$] (-0.3,-3);
+  \draw
+    (1,-1.5)[blue,->,>=latex] arc (180:-90:0.5) node[below] {$M$};
+  \begin{scope}[yshift=-7cm]
+  \draw(0,0) 
+      node[draw,circle,inner sep=0.5mm,blue] [above left = 0.3] {$1$}
+    to[short,o-] (0.5,0)
+    to[R,l_=$\cn Z_1$] (2.5,0)
+    to[short,-*,i=$\cn I_{Z_1}'(\cn{s})$] (3,0)
+      node[draw,circle,inner sep=0.5mm,blue] [above right = 0.3] {$2$}
+    to[short] (3,-0.5)
+    to[R,l_=$\cn Z_2$] (3,-2.5)
+    to[short,i<=$\cn I_{Z_2}'(\cn{s})$] (3,-3.0)
+    to[short,-*] (0,-3.0)
+      node[draw,circle,inner sep=0.5mm,blue] [below left = 0.3] {$3$}
+    (0.5,0) -- (0.5,1.25) to[I_<=$\cn J$] (2.5,1.25) -- (2.5,0)
+    (3,-0.5) -- (4.25,-0.5) to[I_<=$\cn J$] (4.25,-2.5) -- (3,-2.5)
+%     to[short,i=$\cn I_J$] (0,-2.5)
+%     to[I_=$\cn J$] (0,-0.5)
+%     to[short] (0,0)
+    (0,1.55) to[open,v^>=$\cn{U}_{Z_1}(\cn{s})$] (3,1.55)
+    (4.55,0) to[open,v^<=$\cn{U}_{Z_2}(\cn{s})$] (4.55,-3);
+%     (-0.3,0) to[open,v_>=$\cn{U}_{J}(\cn{s})$] (-0.3,-3)
+  \draw
+    (1,-1.5)[blue,->,>=latex] arc (180:-90:0.5) node[below] {$M$};
+  \end{scope}
+\end{circuitikz}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{enumerate}[label=\arabic*.)]
+  \item
+    Masche zeichnen, alle Zweigvariablen hinschreiben, ggf. selbst definieren
+  \item
+    Maschenrichtung so wählen, dass sie in Richtung der STQ zeigt (Hilfsmittel)
+  \item
+    STQ verschieben:
+    \begin{itemize}
+      \item "`Alte STQ"' $\to$ Leerlauf
+      \item "`Neue STQ"' in alle anderen Zweige der Masche so einzeichnen,
+        dass sie gegen Maschensinn gerichtet sind
+      \item Neue Zweigströme einführen.
+        Die Zweigspannungen ändern sich \emph{nicht}!
+    \end{itemize}
+\end{enumerate}
+\end{minipage}
+
+\paragraph{Trafo-Gl.:}
+\[\begin{pmatrix}
+    \cn{I}_{Z_1}' \\
+    \cn{I}_{Z_2}'
+  \end{pmatrix}(\cn{s})
+  = \begin{pmatrix}
+      \cn{I}_{Z_1} \\
+      \cn{I}_{Z_2}
+    \end{pmatrix}(\cn{s})
+    +\cn{J}(\cn{s})
+    \begin{pmatrix}-1\\1\end{pmatrix}
+\]
+
+\paragraph{Rück-Trafo:}
+\[\begin{pmatrix}
+    \cn{I}_{Z_1} \\
+    \cn{I}_{Z_2}
+  \end{pmatrix}(\cn{s})
+  = \begin{pmatrix}
+      \cn{I}_{Z_1}' \\
+      \cn{I}_{Z_2}'
+    \end{pmatrix}(\cn{s})
+    -\cn{J}(\cn{s})
+    \begin{pmatrix}-1\\1\end{pmatrix}\]
+
+\paragraph{Rückgewinnungs-Gl.:}
+\[\begin{aligned}
+  \cn{I}_J(\cn{s})  &= \cn{J}(\cn{s}) \\
+  \cn{U}_J(\cn{s})  &= -\cn{U}_{Z_1}(\cn{s}) + \cn{U}_{Z_2}(\cn{s})
+\end{aligned}\]

@@ -1,0 +1,356 @@
+% \chapter{26.11.2010}
+
+\chapter{Harmonisch Eingeschwungener Zustand (HEZ)}
+
+\begin{skills}
+  \item Rechnen mit komplexen Zahlen
+  \item Komplexe Wechselstromrechnung
+  \item Additionstheoreme
+\end{skills}
+
+
+\paragraph{Voraussetzungen}, damit sich ein \acs{NWM} im \acs{HEZ} befindet:
+
+\klausurhinweis{
+  In der Klausur \emph{muss} bewiesen werden, dass sie erfüllt sind!
+  Sonst gibt es massiv Punktabzug!
+}
+
+\begin{itemize}
+  \item asymptotische Stabilität, d.\,h. alle natürlichen Frequenzen $\cn{A}_i$
+    haben $\Re{\cn{A}_i} < 0$
+  \item Das \acs{NWM} muss sich im eingeschwungenen Zustand befinden, \mbox{d.\,h.}\xspace
+    $t-t_s$, $t-t_n >> \underset{1\leq i\leq n}{\operatorname{max}}
+    \left(-\frac{1}{\Re{\cn{A}_i}}\right)$, die $-\frac{1}{\Re{\cn{A}_i}}$
+    sind die Zeitkonstanten des \acs{NWM}s
+  \item Für alle festen Quellen $e_k(t)$ gilt:
+  
+    $e_k(t)$ ist rein harmonisch für $t>t_k$, $k=1,\ldots,n_Q$, dabei ist
+    $t_m = \underset{1\leq i\leq n_Q}{\operatorname{max}}(t_k)$,
+    d.h. $t_m$ ist der Zeitpunkt, ab dem alle Quellen rein harmonisch sind!
+\end{itemize}
+
+% TODO: Zeichnung
+
+\paragraph{Folgerungen:}
+\begin{itemize}
+  \item Alle Anfangswerte sind abgeklungen ($\rightarrow$EZ), $a_{zi}(t)=0$
+  
+  \item Alle Zweiggrößen sind rein harmonische Funktionen:\\
+    $a(t)=\Re{\cn{A}\cdot e^{j\omega t}}
+    \underset{\cn{A}=A\cdot e^{j\varphi_A}}{=}
+    A\cos(\omega t+\varphi_A)$
+    
+    $\Rightarrow$ Das NWM lässt sich vollständig durch \acs{KWSR} beschreiben!
+    
+    \paragraph{Beispiel}
+    
+    \begin{align*}
+      u_R(t) &= R\cdot i_R(t) 
+      &&\underset{
+        \begin{aligned}
+          i_R(t)
+            &= I_R\cdot\cos(\omega t+\varphi)  \\
+            &= \Re{I_R\cdot e^{j\varphi}\cdot e^{j\omega t}}  \\
+            &= \Re{\cn{I}_R\cdot e^{j\omega t}}
+        \end{aligned}
+      }{\xrightarrow{\hspace{1cm}}}
+      &&\begin{aligned}
+        u_R(t)
+          &= \Re{R\cdot \cn{I}_R\cdot e^{j\omega t}} \\
+          &= \Re{\cn{U}_R\cdot e^{j\omega t}}
+      \end{aligned} \\
+      %
+      u_L(t) &= L\cdot \frac{\partial}{\partial t}i_L(t) 
+      &&\underset{
+        \begin{aligned}
+          i_L(t) = \Re{\cn{I}_L\cdot e^{j\omega t}}
+        \end{aligned}}
+        {\xrightarrow{\hspace{1cm}}}
+      &&\begin{aligned}
+          u_L(t)
+            &= \Re{L\cdot \frac{\partial}{\partial t} \cn{I}_L
+              \cdot e^{j\omega t}}  \\
+            &= \Re{j\omega L\cdot\cn{I}_L\cdot e^{j\omega t}} \\
+            &= \Re{\cn{U}_L\cdot e^{j\omega t}}
+        \end{aligned} \\
+      %
+      i_c(t) &= C\cdot \frac{\partial}{\partial t} u_C(t)
+      &&\underset{
+        \begin{aligned}
+          u_C(t) = \Re{\cn{U}_C\cdot e^{j\omega t}}
+        \end{aligned}}
+        {\xrightarrow{\hspace{1cm}}}
+      &&\begin{aligned}
+          i_c(t)
+            &= \Re{C\cdot \frac{\partial}{\partial t}\cn{U}_C
+              \cdot e^{j\omega t}}  \\
+            &= \Re{j\omega C\cdot \cn{U}_C\cdot e^{j\omega t}}
+        \end{aligned}
+    \end{align*}
+
+    Das Einzige, was sich bei den \acs{ZGL} ändert, sind die Zeiger:
+    \[\left.
+      \begin{aligned}
+        \cn{U}_R &= R\cdot \cn{I}_R  \\
+        \cn{U}_L &= j\omega L\cdot \cn{I}_L  \\
+        \cn{I}_C &= j\omega C\cdot \cn{U}_c
+      \end{aligned}
+      \right\}\text{ZGL der komplexen Wechselstromrechnung}\]
+    (Für MGL/SGL geht es genauso!)
+\end{itemize}
+
+\clearpage
+\section{Vorgehensweise HEZ}
+
+\begin{enumerate}
+%   \item Stelle $e(t)$ bzw. $e_\infty(t)$ auf in der Form:
+%     \[e(t)=\sum_{k=1}^n E_k \cos(\omega_k t+\varphi_k)\qquad
+%     \text{//$n$ ist hier \emph{nicht} die Ordnung des NWM!}\]
+  \item Stelle $e(t)$ bzw. $e_\infty(t)$ auf in der Form:
+    \[\colorbox{emphlight}{$\displaystyle e(t)=\sum_{k=1}^n E_k \cdot\cos(\omega_k t+\varphi_k)$}\]
+    Dazu muss $e(t)$ ggf. mit Hilfe von Additionstheoremen umgeformt werden.
+    Alle $E_k$, $\omega_k$, $\varphi_k$ sind zu definieren!\\
+    Hilfreich: $V=V\cdot \cos(0\cdot t+0)$, falls $v(t) = V$
+
+  \item Beweise, dass die Vorraussetzungen für HEZ erfüllt sind
+    (Antwortsatz: Formelsammlung)
+
+  \item Stelle $\cn H(j\omega)$ in Polarkoordinaten dar
+    ($\cn H(j\omega)=\frac{\cn P(j\omega)}{\cn Q(j\omega)}$ mit $\cn P(j\omega)$,
+    $\cn Q(j\omega)$ Polynome):
+    \begin{align*}
+      \cn{H}(j\omega)&\phantom{:}=:K(\omega)
+        \cdot e^{j(\varphi_P(\omega)-\varphi_Q(\omega))}\\
+      K(\omega) &:= |\cn{H}(j\omega)|
+        = \sqrt{\frac{\Im{\cn{P}(j\omega)}^2 + \Re{\cn{P}(j\omega)}^2}
+        {\Im{\cn{Q}(j\omega)}^2 + \Re{\cn{Q}(j\omega)}^2}}
+        \qquad \text{// nicht vereinfachen!}\\
+      \varphi_{P}(\omega)
+        &:= \arctan\left({\frac{\Im{\cn P(j\omega)}}{\Re{\cn P(j\omega)}}}\right) +
+        \begin{cases}
+          0   &\text{falls} \Re{\cn P(j\omega)} > 0 \\
+          \pi &\text{falls} \Re{\cn P(j\omega)} < 0
+        \end{cases}\\
+        % TODO
+        % Muss jür \emph{jedes} $\omega_k$ einzeln geprüft werden, sodass
+        % danach üfr jedes $\omega_k$ klar ist, zu welchem Fall es gehört
+      \varphi_Q(\omega) &\phantom{:=} \text{analog zu } \varphi_P(\omega)
+    \end{align*}
+    Damit gilt (für \emph{eine} Quelle mit \emph{einer} Frequenz):
+    \[\cn{A}=\cn{H}(j\omega)\cdot \cn{E}
+      = E\cdot K(\omega)
+        \cdot e^{j(\varphi_E+\varphi_P(\omega)-\varphi_Q(\omega))}\]
+    Transformation in den Zeitbereich:
+    \[\Rightarrow a(t) = \Re{\cn{A}\cdot e^{j\omega t}}
+      = E \cdot K(\omega)
+        \cdot \cos(\omega t+\varphi_E+\varphi_P(\omega)-\varphi_Q(\omega))\]
+
+
+  \item Berechne $a(t)$ (näherungsweise) per Superposition im HEZ:
+    \[a(t) \approx a_{\text{hez}}
+      = \sum_{k=1}^{n}
+        E_k\cdot K(\omega_k)\cdot\cos(
+          \omega_k t+\varphi_{E,k}+\varphi_P(\omega_k)-\varphi_Q(\omega_k))\]
+    $\varphi_P(\omega_k)$ und $\varphi_Q(\omega_k)$ müssen für jedes $k$
+    bestimmt werden!
+\end{enumerate}
+
+
+%     Zuerst die Voraussetzungen beweisen, dann:
+%     \[\cn{H}(j\omega) = \frac{\cn{A}}{\cn{E}}
+%       = \frac{\cn{P}(j\omega)}{\cn{Q}(j\omega)}
+%       \text{ in Polarkoordinaten darstellen: }
+%       \cn{H}(j\omega):=K(\omega)
+%         \cdot e^{j(\varphi_P(\omega)-\varphi_Q(\omega))} % TODO: check!
+%       \]
+%     D.h. Betrag ($K(\omega)$) und Argument ($\varphi_{P,Q}$) definieren:
+%     \[\]
+%     \[\varphi_{P,Q}(\omega)
+%       := \arctan\left({\frac{\Im{}}{\Re{}}}\right) +
+%         \begin{cases}
+%           0   &\text{falls} \Re{} > 0 \\
+%           \pi &\text{falls} \Re{} < 0
+%         \end{cases}
+%       \qquad \text{definieren!}
+%     \]
+
+
+\section{Komplexe Zahlen}
+
+\begin{align*}
+  \cn z = a+jb = r\cdot e^{j\varphi} = r\cdot (\cos\varphi + j\sin\varphi)
+\end{align*}
+
+
+\subsection{Betrag einer komplexen Zahl}\skilllabel{komplexbetrag}
+
+\[|\cn z| = \sqrt{\Im{\cn z}^2+\Re{\cn z}^2}\]
+
+\subsection{Winkel einer komplexen Zahl}\skilllabel{komplexwinkel}\hfill
+
+\begin{minipage}{0.5\textwidth}
+\begin{tikzpicture}[scale=0.8]
+  \draw[->,>=latex] (-3,0) -- (3,0) node [below right] {$\operatorname{Re}$};
+  \draw[->,>=latex] (0,-3) -- (0,3) node [left] {$\operatorname{Im}$};
+  
+  \coordinate[] (P) at (2,2) {};
+  \coordinate[] (Ps) at (-2,-2) {};
+  \draw[fill] (P) circle (0.05);
+  \draw[fill] (Ps) circle (0.05);
+  \draw (Ps) node[left] {$-\cn{z}$}
+    -- (P) node [right] {$\cn{z} = x+jy\text{ mit }x,y>0$};
+  \draw[blue, thick] (0,0) -| (P);
+  \draw (1,0) arc (0:45:1) node [below=0.2] {$\varphi$};
+\end{tikzpicture}
+\end{minipage}
+\hfill
+\begin{minipage}{0.4\textwidth}
+\[\color{blue}\left(\text{Hauptwert des $\arctan$: }
+  \real\to\left(-\frac{\pi}{2};\frac{\pi}{2}\right)
+  \right)\]
+\end{minipage}
+
+Für den Winkel gilt:
+\[\angle \cn{z} = \arctan\left(\frac{y}{x}\right)
+  \in \left(-\frac{\pi}{2};\frac{\pi}{2}\right) \]
+für $-\cn{z}$ gilt: $\angle-\cn{z} = \angle z \pm\pi$,
+gleichzeitig liefert der Hauptwert des $\arctan()$:
+\[\arctan{\left(\frac{-y}{-x}\right) = \arctan\left(\frac{y}{x}\right)}
+  =\angle\cn{z}\]
+Der Hauptwert liefert Werte zischen $-\frac{\pi}{2}$ und $\frac{\pi}{2}$
+zurück, er berechnet den Winkel von $\cn{z}$ korrekt, solange
+\[\angle\cn{z} \in \left(-\frac{\pi}{2};\frac{\pi}{2}\right)
+  \Leftrightarrow \cn{z} \text{ liegt in der rechten \acs{HE} }
+  \Leftrightarrow \Re{\cn z} > 0\]
+Andernfalls  muss noch die Korrektur "`$+\pi$"' dazuaddiert werden:
+\[\colorbox{emphlight}{$\angle\cn{z} = \arctan\left(\frac{y}{x}\right)
+  + \begin{cases}
+      0 & \text{falls } \Re{\cn{z}}=x > 0 \text{ \quad// rechte \acs{HE}} \\
+      \pi & \text{falls } \Re{\cn{z}}=x < 0 \text{ \quad// linke \acs{HE}}
+    \end{cases}$}
+\]
+
+
+
+% \section{Erweiterung der Rechentechniken auf mehrere Quellen/eine Quelle
+% mit mehreren Frequenzen}
+% 
+% \begin{itemize}
+%   \item Forme $e(t)$ mit Hilfe von Additionstheoremen solange um, dass $e(t)$
+%     folgende Form hat:
+%     \[e(t) = \sum_{k=1}^{n} E_k\cdot \cos(\omega_k\cdot t+\varphi_k)
+%       \qquad\begin{aligned}
+%         &\text{// Hilfreich: } V=V\cdot \cos(0\cdot t+0)
+%         \text{, falls } v(t) = V \\
+%         &\text{// Alle } E_k, \omega_k, \varphi_k \text{ definieren!}
+%       \end{aligned}\]
+%   \item Per Superposition gilt:
+%     \begin{align*} 
+%       a_{hez}(t) &\;\;\;= \Re{
+%         \sum_{k=1}^{n} \underbrace{\underbrace{
+%           E_k\cdot e^{j\varphi_k}}_{\cn{E}_k}
+%         \cdot \cn{H}(j\omega_k)}_{\cn{A}_k=\cn{H}(j\omega)\cdot\cn{E}_k}
+%         \cdot e^{j\omega_k t}} \\
+%       &\underset{\begin{matrix}\text{Polar-}\\\text{darst.}\end{matrix}}{=}\Re{
+%         \sum_{k=1}^{n} E_k \cdot K(\omega_k)
+%           \cdot e^{j(\omega_k\cdot t +\varphi_k
+%             + \varphi_P(\omega_k) - \varphi_Q(\omega_k))}}  \\
+%       &\;\;\;= \sum_{k=1}^{n}
+%         E_k\cdot K(\omega_k)\cdot\cos(
+%           \omega_k\cdot t+\varphi_k+\varphi_P(\omega_k)-\varphi_Q(\omega_k))
+%     \end{align*}
+%   \item \color{blue} Berechne für $e_k(t)$ den Anteil $a_{hez,k}(t)$ wie oben
+%     für alle $k=1,\ldots,n_Q$.
+%     
+%     Dann gilt wieder per Superposition:
+%     \[a_{hez}(t) = \sum_{k=1}^{n_Q} a_{hez,k}(t)\]
+% \end{itemize}
+
+
+
+% \chapter{03.12.2010}
+
+
+% TODO: ESB für t > t_s
+\section{Beispielaufgabe F05 A1 a),b)}
+
+\begin{enumerate}[label= \bfseries\alph*)]
+  \item 
+    \begin{align*}
+      \cn{H} &\;\;= \frac{\cn{I}_{C_2}}{\cn V}
+        = j\omega C_2\cdot\frac{\cn{U}_{C_2}}{\cn V}  \\
+        &\underset{\begin{matrix}
+            \text{\footnotesize Spg.-}\\
+            \text{\footnotesize Teiler}
+          \end{matrix}}{=}
+          j\omega C_2\cdot\frac{\frac{1}{j\omega C_2}\parallel(j\omega L+R)}
+          {\frac{1}{j\omega C_2}\parallel(j\omega L+R)+\frac{1}{j\omega C_1}}\\
+        &\;\;= \cancel{j\omega C_2}
+          \cdot\frac{\cancel{\frac{1}{j\omega C_2}}\cdot (j\omega L+R)}
+            {\frac{1}{j\omega C_2} \cdot (j\omega L+R) + \frac{1}{j\omega C_1}
+              \cdot\left(j\omega L+R+\frac{1}{j\omega C_2}\right)}
+          \cdot\frac{(j\omega)^2C_1C_2}
+            {(j\omega)^2C_1C_2} \\
+        &\;\;=\frac{(j\omega)^3C_1C_2L+(j\omega)^2C_1C_2R}
+          {(j\omega)^2(C_1+C_2)L+(j\omega)\cdot R(C_1+C_2)+1}
+    \end{align*}
+
+  \item
+    \begin{itemize}
+      \item Stelle $e(t) = v(t)$ als Summe von $\cos$-Fkt. dar:
+        \[v(t) = \underbrace{A\cdot \sin(\omega_0 t+\varphi_1)}_{
+            \begin{aligned}
+              E_1       &:= A \\
+              \omega_1  &:= \omega_0  \\
+              \Phi_1    &:= \varphi_1-\frac\pi2
+            \end{aligned}}
+          +\underbrace{B\cdot \cos(3\omega_0 t)}_{
+            \begin{aligned}
+              E_2       &:= B \\
+              \omega_2  &:= 3\omega_0 \\
+              \Phi_2    &:= 0
+            \end{aligned}}
+          =\sum_{k=1}^{2} E_k\cdot \cos(\omega_k t+\Phi_k)\]
+      \item Voraussetzung für den HEZ erfüllt?
+      
+        \begin{itemize}[label=$\rightarrow$]
+          \item Asympt. Stabilität!
+          \item $t-t_s$, $t-t_m >> \underset{i}{\operatorname{max}}
+            \left\{-\frac{1}{\Re{\cn{A}_i}}\right\}$
+          \item Alle $e(t)$ für $t>t_m$ sind harmonisch!
+        \end{itemize}
+        
+        \underline{$\Rightarrow$ Erfüllt.}
+        
+        Das als asympt. stabil angenommene \acs{NWM} befindet sich für\\
+        $t-t_s>>\underset{i}{\operatorname{max}}
+          \left\{-\frac{1}{\Re{\cn{A}_i}}\right\}$ näherungsweise im EZ.
+          Da $v(t)$ rein harmonisch ist, sogar im \acs{HEZ}!
+    \end{itemize}\medskip
+
+  % TODO: Kasten unten rechts fehlt!
+  \begin{minipage}{0.5\textwidth}
+    $\cn{A}_i\colon$ Natürliche Frequenzen
+    \[e^{\cn{A}_i\cdot t} = \underset{
+        \begin{array}{c}
+          \scriptstyle\text{klingt ab}\\
+          \scriptstyle\text{für }t\to\infty,\\
+          \scriptstyle\text{falls }\sigma<0
+        \end{array}}{
+      e^{\sigma\cdot t}} \cdot \underset{
+        \begin{array}{c}
+          \downarrow\\
+          |e^{j\omega t}|=1
+        \end{array}}
+    {e^{j\omega t}}\]
+  \end{minipage}
+  \begin{minipage}{0.5\textwidth}
+    \[\Rightarrow \frac{1}{\sigma}\mathrel{\widehat{=}} \text{Zeitkonstante}\]
+    
+    $t_m$: Ab diesem Zeitpunkt sind alle $e(t)$ harmonisch.
+  \end{minipage}
+
+\end{enumerate}
+
+

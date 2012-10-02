@@ -1,0 +1,27 @@
+\chapter{Kleine Formelsammlung}
+
+\section{Tabelle wichtiger Laplace-Transformationen}\skilllabel{laplacetrafos}
+\begin{center}
+\begin{tabular}{ll}
+$f(t)$  & $\mathfrak{L}\{f(t)\}$\\
+\midrule
+$\delta(t)$ & $1$\\[1ex]
+$\delta^{(n)}(t)$ & $\cn s^n$\\[1ex]
+$\dfrac{1}{\cn s+a}$ & $\Theta(t)\cdot e^{-at}$\\[1ex]
+$\dfrac{a}{\cn s^2+a^2}$ & $\sin(at)$\\[1ex]
+$\dfrac{\cn s}{\cn s^2+a^2}$ & $\cos(at)$\\[1ex]
+\end{tabular}
+\end{center}
+
+\section{Additionstheoreme}\skilllabel{additionstheoreme}
+
+\begin{align*}
+  \sin(x)\cdot\cos(y) &= \frac{1}{2}(\sin(x-y)+\sin(x+y))\\
+  \sin(x)\cdot\sin(y) &= \frac{1}{2}(\cos(x-y)-\cos(x+y))\\
+  \cos(x)\cdot\cos(y) &= \frac{1}{2}(\cos(x-y)+\cos(x+y))\\
+\end{align*}
+
+\begin{align*}
+  \cos^2(x) &= \frac{1}{2}(1+\cos(2x))\\
+  \sin^2(x) &= \frac{1}{2}(1-\cos(2x))
+\end{align*}

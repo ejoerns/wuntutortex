@@ -1,0 +1,266 @@
+% \chapter{12.11.2010}
+
+\chapter{Asymptotische Stabilität}
+
+\infobox*{\raggedright%
+  Ein Netzwerkmodell ist asymptotisch stabil, wenn
+  alle natürlichen Frequenzen des Netzwerkmodells einen
+  \emph{negativen Realteil} haben.\\
+  \raggedleft\small($\to$ Satz 5.2)}
+Die nat. Freq. $\cn A_i$ bestimmen, ob, und wenn ja,
+wie schnell das \acs{NWM} einschwingen \emph{kann}.
+
+% \begin{itemize}
+%     $\to$ Bsp.: Die Lösung des \acs{NWM}s liefert $e^{\cn{A}_i\cdot t}$,
+%     $\cn{A}_i$: natürliche Frequenz, $\cn{A}_i = \alpha + j\beta$
+%     \begin{description}
+%       \item[NR:] $e^{\cn{A}_i t} = e^{\alpha t}\cdot e^{j\beta t}$;
+%         $e^{\alpha t}$ klingt ab, wenn $\alpha<0$
+%     \end{description}
+% \end{itemize}
+
+
+\section{Wie beweist man asymptotische Stabilität?}% margin: siehe FS
+
+Zuerst müssen \emph{alle} ($n$) natürlichen Frequenzen gefunden werden (Punkt 1-3).
+Dann wird bewiesen, dass sie einen negativen Realteil haben (Hurwitz-Kriterium)
+(Punkt 4).
+
+
+
+\begin{enumerate}
+  \item $n_A$ und $n_R$ bestimmen!\hfill
+  \begin{description}
+    \item[$n_A:$] Anzahl der differenzierbaren Variablen,
+      also Variablen, die abgeleitet werden.
+      \begin{description}
+        \item[Bsp.:]\hfill\\
+          \begin{minipage}{0.5\textwidth}
+            \begin{circuitikz}[scale=0.7,baseline=(current bounding box.center)]
+              \ctikzset{voltage/distance from node=.3}
+              \draw (0,0)
+                to[C=$C$,i=$i_C(t)$,v>=$u_C(t)$] (0,-3);
+            \end{circuitikz}
+            $i_c(t) = C\cdot \frac{\partial}{\partial t}\colorbox{emphlight}{$u_C(t)$}$
+          \end{minipage}
+          \begin{minipage}{0.5\textwidth}
+            \begin{circuitikz}[scale=0.7,baseline=(current bounding box.center)]
+              \ctikzset{voltage/distance from node=.4}
+              \draw (0,0)
+                to[L=$L$,i=$i_L(t)$,v>=$u_L(t)$] (0,-3);
+            \end{circuitikz}
+            $u_L(t) = L\cdot \frac{\partial}{\partial t}\colorbox{emphlight}{$i_L(t)$}$
+          \end{minipage}
+          \par\vspace*{5mm}
+          \begin{minipage}{0.5\textwidth}
+            ~\,%
+            \begin{circuitikz}[scale=0.7,baseline=(current bounding box.center)]
+              \ctikzset{voltage/distance from node=.4}
+              \draw (0,0)
+                to[R=$R$,v>=$u_R(t)$,i={\,}] (0,-3);
+              \draw (2,0)
+                to[I] (2,-3);
+            \end{circuitikz}
+            $\alpha \frac{\partial}{\partial t} \colorbox{emphlight}{$u_R(t)$}$
+          \end{minipage}
+          \begin{minipage}{0.5\textwidth}
+            \quad%
+            \begin{circuitikz}[scale=0.7,baseline=(current bounding box.center)]
+              \ctikzset{voltage/distance from node=.4}
+              \draw (0,0)
+                to[L=$L$,i>=$i_R(t)$] (0,-3);
+              \draw (2,0)
+                to[V] (2,-3);
+            \end{circuitikz}
+            $\beta\frac{\partial}{\partial t} \colorbox{emphlight}{$i_L(t)$}$
+          \end{minipage}
+      \end{description}
+%       \begin{itemize}
+%         \item Erst $u_C(t)$, $i_L(t)$ zählen
+%         \item Dann die durch Ableitung gesteuerten Quellen.\\
+%           Diese liefern nur
+%           dann eine differenzierbare Variable, falls sie noch nicht gezählt wurden.\\
+%           $\to$ \emph{Keine differenzierbare Variable wird "`doppelt"' gezählt}
+%       \end{itemize}
+
+    \item[$n_R:$] Anzahl der zustandsreduzierenden Gleichungen (ZRG)
+      \begin{description}
+        \item[Allgemein:]
+          \[\sum_{i=1}^n \alpha_i\cdot x_i(t)
+            + \sum_{i=1}^{n_Q} \beta_i\cdot e_i^{(k)}(t) = 0\]
+          \begin{tabular}{r@{\,:~}l}
+            $x_i(t)$      &differenzierbare Variable  \\
+            $e_i^{(k)}$   &\emph{ungesteuerte} Quellen + deren Ableitungen \\
+            $\alpha_i, \beta_i$ &Konstanten, z.B. $RCL$, etc.
+          \end{tabular}
+        \item[Spezialfälle:]\hfill
+          \begin{itemize}
+            \item MGL \emph{nur} aus $C$s und/oder festen SPQ
+            \item SGL \emph{nur} aus $L$s und/oder festen STQ
+          \end{itemize}
+          \leftpointright~Gibt es \emph{keine} gesteuerten Quellen im NWM,
+          kann es nur solche ZRG geben.
+      \end{description}
+      Wichtig: Für die Anzahl $n_{R_g}$ der \emph{gefundenen} ZRG gilt:
+      \[n_R \geq n_{R_g}\qquad !\]
+    \item[$n:$]\hfill
+      \begin{itemize}
+        \item Ordnung des Netzwerkmodells, $n = n_A-n_R$
+        \item Anzahl an nat. Freq. des NWMs
+          (die man auf neg. Realteil testen soll)
+        \item Ordnung des DGL-Systems, also ZRM (Zustandsraummodell)
+      \end{itemize}
+    \item[$\Rightarrow$] \colorbox{emphlight}{$n = n_A-n_R$}
+  \end{description}
+
+  \item ÜF/FG aufstellen:
+    \[\cn{H}(\cn{s}) = \frac{\cn{P}(\cn{s})}{\cn{Q}(\cn{s})}\ ;\quad
+      \cn{P}(\cn{s}), \cn{Q}(\cn{s})\text{ Polynome}
+    \]
+    Sind $\cn{P}(\cn{s})$, $\cn{Q}(\cn{s})$ teilerfremd?\\
+    \begin{tabular}{@{$\rightarrow$\,}r@{\,:~\,}l@{}}
+      Ja    & weiter, alle Nullstellen von $\cn{Q}(\cn{s})$ sind
+        natürliche Frequenzen\\
+      Nein  & kürzen
+    \end{tabular}
+    \begin{description}
+      \item[Anmerkung:] Hat man mehrere ÜF, müssen auch die $\cn{Q}_i(\cn{s})$
+        zueinander teilerfremd sein
+    \end{description}
+
+  \item Es gilt $n_A-n_R = n \geq \grad(\cn{Q}(\cn{s}))$.
+    Gilt auch $n_A-n_R=\grad(\cn{Q}(\cn{s}))$?\\
+    \begin{tabular}{@{$\rightarrow$\,}r@{\,:~\,}l@{}}
+      Ja    & weiter  \\
+      Nein  & Neue ÜF aufstellen, die (hoffentlich)
+        alle fehlenden nat. Freq. (zu 2.) liefert
+    \end{tabular}
+
+  \item Haben alle Nullstellen von $\cn{Q}(\cn{s})$ (bzw. $\cn{Q_i}(\cn{s})$)
+    einen negativen Realteil?\\
+    \begin{tabular}{@{$\rightarrow$\,}r@{\,:~\,}l@{}}
+      Ja    & Das NWM ist asymptotisch stabil  \\
+      Nein  & Das NWM ist instabil
+    \end{tabular}
+    \begin{description}
+      \item[Anmerkung:]
+        $\cn{Q}(\cn{s})$ heißt \emph{Hurwitzpolynom}, falls alle Nullstellen
+        einen negativen Realteil haben.
+        \Index{Hurwitzpolynom}
+        
+        Für $\grad(\cn{Q}(\cn s)) \leq 2$ gilt:
+        \begin{empheq}[box=\colorbox{emphlight}]{align*}
+          \text{Alle Koeffizienten sind }\begin{matrix}\text{positiv}\\[-0.5ex]\text{negativ}\end{matrix}
+            &\Leftrightarrow \cn{Q}(\cn{s})\text{ ist ein Hurwitzpolynom }\\
+            &\Leftrightarrow\text{Alle Nullstellen haben negativen Realteil}
+          \end{empheq}
+    \end{description}
+
+\end{enumerate}
+
+% TODO:
+% \subsection{Teilerfremdheit}
+% Einfacher ist es, Zähler-Nullstellen in den Nenner einzusetzen.
+% Beim mehreren Q(s) testen, ob Q(s)s untereinander teilerfremd.
+
+
+% \begin{description}
+%   \item[Anmerkung:] Bei mehreren \acs{ZRG} muss man prüfen,
+%     ob sie \emph{linear unabhängig} sind\\
+%     $\to$ ob eine davon durch die anderen darstellbar ist
+% \end{description}
+
+\clearpage
+\section{Beispiel: F08 A1}
+
+\begin{figure}[h]
+\begin{center}
+\begin{circuitikz}[scale=1.2]\draw
+	(0,0) -- (6,0)
+	to [C,l_=$C_2$,v^>=$u_{C_2}(t)$] (6,-4)
+	-- (4,-4)
+	to [L=$L$, *-] (4,-2)
+	to [R,l_=$R_2$,v^>=$u_{R_2}(t)$, -*] (4, 0)
+	(4,-4)
+	-- (2,-4)
+	to[R=$R_1$,*-] (2,-2)
+	-- (0,-2)
+	to [C=$C_1$,v=$u_{C_1}(t)$,*-] (0,-4)
+	-- (2,-4)
+	(0,-2)
+	to [V<=$v(t)$] (0,0);
+\draw (2,-4) to [very thick] (4,-4);
+\end{circuitikz}
+\end{center}
+\caption*{$R_i = R$, $C_i = C$}
+\end{figure}
+
+\paragraph{Aufgabe}
+\begin{enumerate}[label=\alph{*})]
+	\item $\cn{H}(j\omega) = \frac{\cn{P}(j\omega)}{\cn{Q}(j\omega)} =
+\frac{\cn{U}_{R_2}}{\cn{V}}$
+	\item Ist das \acs{NWM} asymptotisch stabil?
+\end{enumerate}
+
+% \infobox{Beispiel für zustandsreduzierende Gleichungen}{%
+% 
+% \begin{compactitem}
+% 	\item Maschen aus $C$ und/oder festen SPQ
+% 	\item Schnittmengen aus L und/oder festen STQ
+% \end{compactitem}
+% 
+% \paragraph{Allgemein:}
+% 
+% $x_1(t), \hdots, x_n(t)$ sind diffbare Variablen,
+% $e_1(t), \hdots, e_{n_Q}(t)$ sind feste Quellen
+% \[
+% \Rightarrow\quad \sum_{i=1}^n \alpha_i \cdot x_i(t) + \sum_{i=1}^{n_Q}\sum_{k=0}^{r_i} e_i^{(k)}(t) \cdot \beta_{i,k} = 0
+% \]
+% ist eine allgemeine zustandsreduzierende Gleichung.
+% }
+
+\paragraph{Lösung}
+\begin{enumerate}[label=\arabic{*})]
+
+  \item $n_A$, $n_R$ aufstellen:\par
+  $n_A\colon n_A=3$, denn $u_{C_1}(t), u_{C_2}(t), i_L(t)$
+    sind diffbare Variable!\\
+  $n_R\colon n_R\geq 1$, wegen Masche aus $C_1, C_2, v(t)$% TODO: n_R\geq 1?
+
+  \acs{MGL}: $u_{C_1}(t) + u_{C_2}(t) - v(t) = 0$
+  \begin{description}
+    \item[Beispiel:] AW von $u_{C_1}(t)$ für $t = t_0$ vorgegeben\\
+      $\Rightarrow u_{C_2}(t_0) = v(t_0) - u_{C_1}(t_0)$
+      ist \emph{nicht} frei vorgebbar! (1 Zustand fällt weg!)
+  \end{description}
+  $\Rightarrow n = n_A- n_R \leq 2$
+
+  \item $\cn H(\cn s)$ aufstellen. Zeigen, dass $\cn{P}(\cn s)$, $\cn{Q}(\cn s)$
+    teilerfremd sind:
+    %
+    \[\text{Aus a) berechnet:}\quad
+      \cn H(\cn s) = \frac{\cn sCR^2+R}{\cn s^2 2RCL+\cn s\left(2R^2C+L\right)+2R}\]
+    Zählerpolynom zu Null setzen und Ergebnis in Nennerpolynom einsetzen:
+    \begin{align*}
+      \cn{P}(\cn s) &\stackrel{!}{=} 0 \Rightarrow \cn s_0 = -\frac{1}{RC}\\
+      \quad\cn{Q}\left(-\frac{1}{RC}\right)% TODO: \cn s -> \cn s !?
+      &= \left(-\frac{1}{RC}\right)^2\cdot 2RCL +
+        \left(-\frac{1}{RC}\right)\cdot (2R^2C+L) + 2R\\
+      &= \frac{2L}{RC} - \frac{L}{RC} - 2R+2R
+        = \frac{L}{RC} \underset{R,C,L > 0}{>} 0
+    \end{align*}
+    $\Rightarrow$ $\cn{P}(\cn s)$, $\cn{Q}(\cn s)$ sind teilerfremd,
+    $\cn{Q}(\cn s)$ liefert 2 natürliche Frequenzen!
+
+
+  \item Gilt $n=\grad(\cn Q(\cn s))?$\par
+    $\Rightarrow 2\geq n_A - n_R = n \geq \grad\left(\cn{Q}(\cn s)\right) = 2$
+
+    $\Rightarrow n = \grad\left(\cn{Q}(\cn s)\right) = 2, \cn{Q}(\cn s)$
+    liefert \emph{alle} natürlichen Frequenzen des NWM!
+
+  \item Haben alle NS von $\cn Q(\cn s)$ einen negativen Realteil?\par
+    $\cn{Q}(\cn s)$ ist ein Hurwitzpolynom 2. Grades,
+    daher haben alle Nullstellen einen echt negativen Realteil,
+\end{enumerate}
+$\rightarrow$ Das NWM ist \textbf{asymptotisch stabil}. \qed

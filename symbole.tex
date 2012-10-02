@@ -1,0 +1,24 @@
+%Befehle für Symbole
+\newcommand{\newsymbolentry}[3]{%
+  \newglossaryentry{symb:#1}{%
+  name=#2,%
+  description={#3.},%
+  sort=symbol#1, type=symbolslist%
+  }
+}
+
+\newsymbolentry{nQ}{$n_Q$}{Anzahl der Quellen}
+\newsymbolentry{et}{$e(t)$}{Eingangssignal}
+\newsymbolentry{at}{$a(t)$}{Ausgangssignal}
+\newsymbolentry{ts}{$t_s$}{Schaltzeitpunkt}
+\newsymbolentry{Ai}{$\cn{A}_i$}{natürliche Frequenz}
+\newsymbolentry{azit}{$a_{zi}(t)$}{\itshape "`zero input response"'}
+\newsymbolentry{xts}{$\vec{x}_{t_0}$}{Anfangszustandsvektor}
+\newsymbolentry{aezt}{$a_{ez}(t)$}{Antwort im eingeschwungenen Zustand}
+\newsymbolentry{nA}{$n_A$}{Anzahl .. Variablen}
+\newsymbolentry{nR}{$n_R$}
+  {Anzahl zustandsreduzierender algebraischer Gleichungen}
+\newsymbolentry{adeltat}{$a_\delta(t)$}{Sprungantwort}
+\newsymbolentry{Sprung}{$\Theta(t)$}{Sprungfunktion}
+
+\glsaddall

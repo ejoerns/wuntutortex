@@ -1,0 +1,237 @@
+% \chapter{14.01.2011}
+
+\chapter{Transistorschaltungen}
+\Index{Transistorschaltung}
+
+\paragraph{Allgemeine Vorgehensweise}
+
+\begin{enumerate}
+	\item \acs{AP} ausrechnen (immer mit einem DC-\acs{ESB}!)
+	\item Kleinsignalparameter aus dem Kennlinienfeld ablesen
+	\item \acs{KSig}-\acs{ESB} zeichnen
+\end{enumerate}
+\Index{Arbeitspunkt}
+\Index{Kleinsignalparameter}
+\Index{Kleinsignal-Ersatzschaltbild}
+
+\section{AP ausrechnen}
+\Index{Arbeitspunkt}
+
+Alle Zweiggrößen des \acs{NWM} sind Gleichgrößen
+	\begin{itemize}
+		\item $C \rightarrow$ Leerlauf
+		\item $L \rightarrow$ Kurzschluss
+		\item Gesteuerte
+			\begin{tabular}{l}
+				SPQ\\ STQ
+			\end{tabular}, die durch Ableitungen gesteuert werden, werden durch
+			\begin{tabular}{l}
+			Kurzschluss\\ Leerlauf
+			\end{tabular} ersetzt.
+
+\begin{description}\item[Beispiel:]\hfill\\[-2ex]
+\begin{center}
+\begin{circuitikz}[scale=1.2]
+\draw
+	(0,0) to[V=$v(t)\eq\alpha\cdot\frac{\partial}{\partial t}u_R(t)$,*-*] (0,-2)
+	
+	(5,0) to[R,v^=$U_R(t)  \underset{\text{DC-Fall}}{\eq} U_R$,*-*] (5,-2)
+	
+	(0,-2.5) node[anchor=west] {$\widehat{=}\; v(t) = \alpha \cdot 0 = 0$}
+	
+	(0,-3) to[short,*-*] (0,-4);
+\end{circuitikz}
+\end{center}
+\end{description}
+
+\item Kleinsignalquellen $\left(v_{KS}(t), j_{KS}(t)\right)$ werden zu 0
+gesetzt.
+	\begin{figure}[h]
+\begin{center}
+\begin{circuitikz}[scale=1.2]
+\draw
+	(0,0) to[V=$v(t) \eq V_{DC} + v_{in,KS}(t)$,*-*] (0,-2)
+	
+	(6,0) to[V=$V_{DC}$,*-*] (6,-2)
+	(4,-1) node[anchor=west] {$\underset{\text{DC-Fall}}{\longrightarrow}$};
+\end{circuitikz}
+\end{center}
+\end{figure}
+  \renewcommand{\labelitemi}{$\Rightarrow$}
+  \item Nur DC-Quellen, gesteuerte Quellen ohne Ableitung,
+  Widerstände und Transistoren im DC-ESB!
+  (NWM im zeitunabhängigen eingeschwungenen Zustand)
+\end{itemize}
+
+
+% \newpage
+
+	\begin{figure}[h]
+\caption*{DC-ESB}
+\begin{center}
+\begin{circuitikz}[scale=0.8]
+\draw
+	(-1.5,1.5) node[pigfete,anchor=G] (tr) {}
+	(tr.G) node[anchor=south] {G}
+	(tr.D) node[anchor=east] {D}
+	(tr.S) node[anchor=west] {S}
+	
+  % NW 2
+  (-6,-1) |- (-4,1) |- (-6,-1)
+  (-5,0) node {NW2}
+  % NW 1
+  (3, -1) |- (5, 1) |- (3,-1)
+  (4,0) node {NW1}
+
+  (-5,-1.5) -- (-5,-1)
+  (-5,1) -- (-5,1.5)
+    -- (-2,1.5) to[short,o-] (tr.G)
+  (-0.25, -1.5)
+    to[short, -o] (1.5,-1.5) -- (4, -1.5) -- (4, -1)
+% 	(4,1) -- (4,2.75) -- (1.5, 2.75) to[short, o-,i_=$I_D$] (tr.D)
+  (tr.D) to [short,-o,i_<=$I_D$] ($(tr.D)+(2,0)$) -| (4,1)
+  (tr.S) to[short, -o] (-0.25, -1.5) -- (-5,-1.5)
+
+	(1.5, 2.75) to[open,v^>=$U_{DS}$] (1.5, -1.5)
+	(-2,1.5) to[open,v>=$U_{GS}$] (0, -1.5)
+	;
+\end{circuitikz}
+\end{center}
+
+\end{figure}
+
+
+Bei MOS-Transistoren: $I_{G,DC} = 0$
+
+\paragraph[AG]{\acs{AG} 1:}
+
+
+Bei einfachen NWM: $I_D = f(U_{DS})$
+
+\begin{itemize}
+	\item Maschengleichung $M$ aufstellen und nach $I_D$ auflösen
+	\item NW1 als \acs{ESPQ} darstellen
+	\subitem $\to$ \acs{LL}-Spannung von NW1 bzgl: $D$ und $S$
+\end{itemize}
+
+
+\paragraph[AG]{\acs{AG} 2:}
+
+\begin{itemize}
+	\item Linke Seite genauso mit $I_G = 0$
+	\item NW2 als \acs{ESPQ} bzgl. $G$ und $S$
+\end{itemize}
+
+% \begin{figure}
+% \caption*{Grausames bild}
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+  % Koordinatensystem
+  \draw[->,>=latex] (0,0) node [below=0.4] {(NMOS)}
+    -- (7,0) node [below right] {$U_{DS}$};
+  \draw[->,>=latex] (0,0) -- (0,4) node [above left] {$I_{DS}$};
+  \draw[->,>=latex] (7.5,3.0) -- node [right] {$U_{GS}$} (7.5,4.0);
+  % Kennlinie
+  \draw (0,0) to[out=60,in=190] (2.5,2.6) -- +(10:4);
+  \draw (0,0) to[out=50,in=190] (2.5,2.0) -- +(10:4);
+  \draw (0,0) to[out=40,in=190] (2.5,1.4) -- +(10:4) node [right] {$U_{GS}=1V$};
+  \draw (0,0) to[out=30,in=190] (2.5,0.8) -- +(10:4);
+  % AGs
+  \draw[blue] (-0.1,3) node [left] {$\frac{V_{LL,NW1}}{R_{,NW1}}$}
+    -- (0,3)
+    -- (6,0)
+    -- (6,-0.1) node [below] {$V_{LL,NW1}$};
+  % Kreuze vertikal
+  \node[cross out,draw,blue]  at ($(2.5,0.8)+(10:0.52)$) {};
+  \node[cross out,draw,blue]  at ($(2.5,1.4)+(10:0.52)$) {};
+  \node[cross out,draw,blue]  at ($(2.5,2.0)+(10:0.52)$) {};
+  \node[cross out,draw,blue]  at ($(2.5,2.6)+(10:0.52)$) {};
+  \draw[blue] ($(2.5,2.6)+(10:0.52)+(90:0.5)$) -- +(-90:3.5);
+  % Tangente
+  \draw[blue] ($(2.5,1.4)+(10:0.52)+(10:-3.2)$) node [left] {Tangente}
+    -- +(10.1:6);
+\end{tikzpicture}
+\end{center}
+% \end{figure}
+
+\section{KS-Parameter}
+
+\begin{align*}
+  R_D^{-1}
+    &= \left.\left(\frac{\partial I_D}{\partial U_D}\right)(AP)\right|_{
+      U_G=\text{konst}=U_{G,DC}}
+    &&\approx \frac{\triangle I_{DS}}{\triangle U_{DS}}
+      \quad \text{der Tangente}\\
+  g
+    &= \left.\left(\frac{\partial I_D}{\partial U_G}\right)(AP)\right|_{
+      U_D=\text{konst}=U_{D,DC}}
+    &&\approx \frac{\triangle I_{DS}}{\triangle U_G}
+      \quad \text{der Sekante} = \frac{I_{D,x1}-I_{D,x2}}{U_{G,x1}-U_{G,x2}}
+\end{align*}
+
+Aus AG2: $U_{GS}$ direkt ablesen (in den meisten Fällen) z.\,B. $U_{GS} =
+1\text{V}$
+
+Allgemein: $I_{DS}= f(U_{GS}) \Rightarrow$ Kennlinie Punktweise einzeichnen. Der Schnittpunkt beider Kennlinien ist der AP!
+
+%%% HIER FEHLT NOCH EINIGES!
+
+\paragraph{Näherung: Schaltzwang}\hfill
+
+\begin{minipage}{0.5\textwidth}\centering
+\begin{circuitikz}
+  \draw node[nmos, anchor=D] (pmos) at (0,0) {}
+    (pmos.D) node [right] {D}
+    (pmos.G) node [below] {G}
+    (pmos.S) node [right] {S}
+    (pmos.D) to[short,i<=$I_D$] (0,0.75) to[short,*-o] (0,1.5)
+    (pmos.S) to[short,-o] (0,-2)
+    (0,0.75) -| ($(pmos.G)+(-0.6,0)$) to[short,i=$I_G$] (pmos.G)
+;\end{circuitikz}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\[U_{DS}\stackrel{!}{=}U_{GS}\]
+Man kann sich nur auf dieser Kennlinie bewegen. $\rightarrow$ Einzeichnen!
+\end{minipage}
+
+
+%%% HIER FEHLT NOCH EINIGES!
+
+
+\begin{circuitikz}
+  \draw (0,0) node [circle,draw,inner sep=0.5mm,left=0.3] {S}
+    to[R=$R_{ges}$,o-o] (3,0)
+      node [circle,draw,inner sep=0.5mm,above right=0.3] {G}
+      node [circle,draw,inner sep=0.5mm,below right=0.3] {D}
+;\end{circuitikz}
+
+
+\paragraph{"`Normalfall"'}\hfill
+
+\begin{circuitikz}
+  \draw (0,0)
+      to[open,o-o] (0,2)
+        node [draw,circle,inner sep=0.5mm,left=0.3] {G}
+    (0,0) to[short,o-o] (5,0)
+        node [circle,draw,inner sep=0.5mm,right=0.3] {S}
+    (3,2) to[I_=$g\cdot U_{GS}(t)$,*-] (3,0)
+    (4,2) to[R=$R_D$,*-*] (4,0)
+    (3,2) to[short,-o] (5,2) node [circle,draw,inner sep=0.5mm,right=0.3] {D}
+;\end{circuitikz}
+
+\section{Kleinsignal-ESB}
+
+\begin{enumerate}[label=\alph*)]
+  \item KS-ESB der Schaltung\\
+    $\rightarrow$ Transistor-KS-ESB einsetzen\\
+    $\rightarrow$ DC-Quellen $\stackrel{!}{=}0$ setzen.
+  \item fertig!!
+\end{enumerate}
+
+\paragraph{Anmerkung}
+
+H04, F05, H05 sind Einsteigeraufgaben.
+
+Teil d) kann erst beantwortet werden, wenn e) gelöst wurde
+
+

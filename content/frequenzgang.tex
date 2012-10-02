@@ -1,0 +1,204 @@
+% \chapter{05.11.2010}
+
+\chapter{Frequenzgang/Übertragungsfunktion}
+\Index{Frequenzgang}\Index{Übertragungsfunktion}
+
+\begin{skills}
+  \item \skillref{stromteiler}{Strom-}/\skillref{spannungsteiler}{Spannungsteiler}
+  \item Komplexe Wechselstromrechnung
+\end{skills}
+
+
+\section{\protect\acs{FG}/\protect\acs{UF} ausrechnen:}
+\[\cn{H}(j\omega) = \frac{\cn A}{\cn E}\]
+
+\infobox{Faustregeln zum Aufstellen von FG/ÜF:}{
+\begin{enumerate}
+  \item Ist die Eingangsquelle $e(t)$ eine 
+    \begin{tabular}{@{}l@{}}
+      \acs{SPQ} \\ \acs{STQ}
+    \end{tabular}, nimmt man einen
+    \begin{tabular}{@{}l@{}}
+      Spg-Teiler \\ Str-Teiler
+    \end{tabular}.\\
+    Macht man das nicht, muss man eine Gesamtimpedanz/Gesamtadmittanz ausrechen.
+  \item Doppelbrüche beseitigen, sodass Zähler und Nenner Polynome in
+    $(j\omega)$ (bei \acs{FG}) bzw. $\underline{s}$
+    (bei \acs{UF}) sind.
+  \item Beim FG:
+    $(j\omega)^n$ \underline{\underline{nicht}} ausmultiplizieren !
+  \item Parallelschreibweise verwenden!\\
+    \[\begin{circuitikz}[scale=0.5,baseline=(current bounding box.center)]
+      \draw (0,0)
+        to [R=$R$] (0,3)
+        -- (2,3)
+        to [C=$C$] (2,0)
+        -- (0,0);
+    \end{circuitikz}
+    \underset{\text{KWSR}}{\mathrel{\widehat{=}}}
+    R \parallel \frac{1}{j\omega C}
+    \]
+\end{enumerate}}
+
+\subsection{Stromteiler}\skilllabel{stromteiler}
+\Index{Stromteiler}
+
+\begin{minipage}{0.5\textwidth}\centering
+\begin{circuitikz}[scale=0.7]
+  \draw (0,-0.2)
+    to[short,o-] (0,0)
+    to[I=$\cn J$] (0,3)
+    to[short,-o] (1,3)
+    -- (1,2)
+    to[R=$\cn Y_1$] (4,2)
+    to[short,i_=$\cn{I_1}$] (5,2)
+    -- (5,3);
+  \draw (1,3)
+    -- (1,4)
+    to[R=$\cn Y_2$] (4,4)
+    -- (5,4)
+    -- (5,3)
+    to[short,o-o] (6,3);
+\end{circuitikz}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{align*}
+  \frac{\cn{I_1}}{\cn J}
+  &= \colorbox{emphlight}{$\displaystyle\frac{\cn{Y_1}}{\cn{Y_1}+\cn{Y_2}}$}
+    \cdot \frac{\cn{Z_1}\cdot\cn{Z_2}}{\cn{Z_1}\cdot\cn{Z_2}}\\
+  &= \colorbox{emphlight}{$\displaystyle\frac{\cn{Z_2}}{\cn{Z_1}+\cn{Z_2}}$}
+\end{align*}
+\end{minipage}
+\begin{center}
+Nur für 2 parallele $\cn Y$ !
+\end{center}
+
+\subsection{Spannungsteiler}\skilllabel{spannungsteiler}
+\Index{Spannungsteiler}
+
+\begin{minipage}{0.5\textwidth}\centering
+\begin{circuitikz}[scale=0.7]
+  \draw (0,-0.2)
+    to[short,o-] (0,0)
+    to[V=$\cn U$] (0,3)
+    to[short] (1,3)
+    to[R=$\cn Z_1$] (4,3)
+    to[R=$\cn Z_2$] (7,3)
+    to[short,-o] (8,3);
+\end{circuitikz}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{align*}
+  \frac{\cn{U_1}}{\cn U}
+  &= \colorbox{emphlight}{$\displaystyle\frac{\cn{Z_1}}{\cn{Z_1}+\cn{Z_2}}$}
+\end{align*}
+\end{minipage}
+\begin{center}
+% Nur für 2 serielle $\cn Z$ !
+\end{center}
+
+\section{Beispielaufgaben}
+
+\subsection{H07 A1 a)}
+
+\begin{align*}
+  \underline{H}(j\omega)
+  &=\underbrace{
+    \frac{j\omega L_1+R_1}
+      {j\omega L_1+R_1+\left(j\omega L_2 + R_2\parallel \frac{1}{j\omega
+L_2}\right)}
+    }_{\dfrac{\cn{I}_{L_2}}{\cn{J}}}
+    \cdot\underbrace{
+      \left(-\frac{\frac{1}{j\omega +C_2}}{R_2+\frac{1}{j\omega C_2}}\right)
+    }_{\dfrac{\cn{I}_{R_2}}{\cn{I}_{L_2}}}  \\
+  &= -\frac{j\omega L_1+R_1}
+    {((j\omega)(L_1+L_2)+R_1)\cdot(j\omega R_2C_2+1)+R_2} \\
+  &= -\frac{j\omega L_1+R_1}
+    {(j\omega)^2R_2C_2(L_1+L_2)+(j\omega)(R_1R_2C_2+L_1+L_2)+R_1+R_2}
+\end{align*}
+
+
+\subsection{H06 A1 a)}
+
+\begin{align*}
+  \cn{H}(j\omega)
+  &=\underbrace{
+    \frac{\cul[green]{R_2\parallel \left(R_3+\frac{1}{j\omega C_2}\right)}}
+      {\cul[green]{R_2\parallel \left(R_3+\frac{1}{j\omega C_2}\right)}+\left(R_1\parallel
+\frac{1}{j\omega C_1}\right)}
+    }_{\dfrac{\cn{U}_{R_2}}{\cn{V}}}
+    \cdot\underbrace{
+      \frac{\frac{1}{j\omega C_2}}{R_3+\frac{1}{j\omega C_2}}
+    }_{\dfrac{\cn{U}_{C_2}}{\cn{U}_{R_2}}}
+    \cdot (j\omega C_2) \\
+% \left| \cn{I}_{C_2}=j\omega C_2\cn{U}_{C_2} \right. % TODO: einfügen
+  &=\frac{R_2\left(R_3+\frac{1}{j\omega C_2}\right)}
+    {R_2\cdot\left(R_3+\frac{1}{j\omega C_2}\right)
+      +\left(R_2+R_3+\frac{1}{j\omega C_2}\right)
+      \cdot R_1\parallel \frac{1}{j\omega C_1}}
+    \cdot\frac{j\omega C_2}{j\omega R_3C_2+1} \\
+  &=\frac{R_2}
+    {R_2\cdot\left(R_3+\frac{1}{j\omega C_2}\right)
+      +\left(R_2+R_3+\frac{1}{j\omega C_2}\right)
+      \cdot \frac{R_1}{j\omega R_1C_1+1}}
+    \cdot\frac{j\omega R_1C_1+1}{j\omega R_1C_1+1}
+    \cdot\frac{j\omega C_2}{j\omega C_2}
+\end{align*}
+
+
+\subsection{F05 A1 a)}
+
+\begin{align*}
+  \cn{H}(j\omega)
+  &=\frac{\cn{I}_{C_2}}{\cn{V}} = j\omega C_2\frac{\cn{U}_{C_2}}{\cn{V}}  \\
+  &=j\omega C_2\frac{\cul[green]{\frac{1}{j\omega C_2}\parallel (j\omega L+R)}}
+      {\cul[green]{\frac{1}{j\omega C_2}\parallel (j\omega L+R)}+\frac{1}{j\omega C_1}}  \\
+  &=\cancel{j\omega C_2}\frac{\frac{1}{\cancel{j\omega C_2}}\cdot(j\omega L+R)}
+    {\frac{1}{j\omega C_2}(j\omega L+R)+\frac{1}{j\omega C_1}
+      \cdot(j\omega L+R+\frac{1}{j\omega C_2})}
+    \cdot\frac{(j\omega)^2 C_1C_2}{(j\omega)^2 C_1C_2} \\
+% Nenner wegkürzen!
+%   &=\frac{j\omega L+R}
+%     {j\omega L+R+\frac{1}{j\omega C_2}((j\omega)^2C_2L+j\omega C_2 R+1)}  \\
+  &=\frac{(j\omega)^3C_1C_2L+(j\omega)^2 RC_1C_2}
+    {(j\omega)C_1(j\omega L+R)+((j\omega)^2C_2L+(j\omega)RC_2+1)}\\
+  &=\frac{(j\omega)^3C_1C_2L+(j\omega)^2 RC_1C_2}
+    {(j\omega)^2(C_1+C_2)L+(j\omega)R(C_1+C_2)+1}
+\end{align*}
+
+
+\subsection{H05 A1 a)}
+
+\begin{align*}
+  \cn{H}(j\omega)
+  &=\frac{\cn{I}_L}{\cn{J}}
+    =\frac{R_1}
+    {R_1+\left(j\omega L+R_2\parallel \frac{1}{j\omega C}\right)}
+    \cdot\frac{(j\omega R_2C+1)}
+      {(j\omega R_2 C+1)} \\
+  &=\frac{R_1(j\omega R_2C+1)}
+    {(R_1+j\omega L)(j\omega R_2C+1)+R_2} \\
+  &=\frac{(j\omega)\cdot R_1R_2C+R_1}
+    {(j\omega)^2 R_2CL+(j\omega)\cdot(R_1R_2C+L)+R_1+R_2}
+\end{align*}
+
+Allgemeiner Hinweis: \colorbox{emphlight}{$\displaystyle
+  R\parallel \frac{1}{j\omega C} = \frac{R}{j\omega RC+1}$}
+
+
+\subsection{F06 A1 a)}
+
+\begin{align*}
+  \cn{H}(j\omega)
+  &=-j\omega L_2
+    \frac{R_1+j\omega L_1}
+      {R_1+j\omega L_1+R_2+j\omega L_2\parallel R_3}
+    \cdot\frac{R_3}
+      {j\omega L_2+R_3} \\
+  &=-\frac{(j\omega)^2R_3L_2L_1+(j\omega)R_1R_3L_2}
+    {(j\omega L_1+R_1+R_2)(j\omega L_2+R_3)+j\omega R_3L_2} \\
+  &=-\frac{(j\omega)^2R_3L_1L_2+(j\omega)R_1R_3L_2}
+    {(j\omega)^2L_1L_2+(j\omega)(L_1R_3+(R_1+R_2+R_3)L_2)+(R_1+R_2)R_3}
+\end{align*}
+
+% TODO: Unterstreichungen?

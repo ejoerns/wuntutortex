@@ -1,0 +1,144 @@
+% \chapter{28.01.2011}
+
+\chapter{Vierpole/Zweitore}
+\Index{Vierpol}\Index{Zweitor}
+
+\begin{minipage}{0.6\textwidth}\centering
+\begin{circuitikz}
+  \draw (0,0)
+    -- (2,0)
+    -- (2,3)
+    -- (0,3)
+    -- (0,0)
+    (0,0.5) to[short,-o,i_>=$\cn{I'}_1$] (-1,0.5) node [below] {Tor 1}
+    (0,2.5) to[short,-o,i_<=$\cn{I}_1$] (-1,2.5)
+    (2,0.5) to[short,-o,i^>=$\cn{I'}_2$] (3,0.5) node [below] {Tor 2}
+    (2,2.5) to[short,-o,i^<=$\cn{I}_2$] (3,2.5)
+    (-1,0.5) to[open,v^=$\cn{U}_1$] (-1,2.5)
+    (3,0.5) to[open,v_=$\cn{U}_2$] (3,2.5)
+;\end{circuitikz}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+Definition eines Zweitors\\
+(Richtung $\cn{I}_{1,2}$, $\cn{U}_{1,2}$!)
+\end{minipage}\medskip
+
+\paragraph{Matrixdarstellung:}
+\[\begin{array}{clccc}
+    \begin{pmatrix}\cn{A}_1\\\cn{A}_2\end{pmatrix}
+    &= \begin{pmatrix}
+        \cn{M}_{11} & \cn{M}_{12} \\
+        \cn{M}_{21} & \cn{M}_{22}
+      \end{pmatrix}
+    &\cdot\begin{pmatrix}
+          \cn{E}_1  \\  \cn{E}_2
+         \end{pmatrix}
+    &+&\begin{pmatrix}
+        \cn{Q}_1  \\ \cn{Q}_2
+      \end{pmatrix} \\
+  \uparrow  && \uparrow &&\uparrow\\
+  \begin{minipage}{3.5cm}\small\raggedright
+    \text{Ausgangsvektor,}
+    \begin{description}
+      \item[$\cn{A}_1, \cn{A}_2\colon$]
+      Ausgangs\-zeiger aus
+      \{$\cn{I}_1$, $\cn{I}_2$, $\cn{U}_1$, $\cn{U}_2$\}
+    \end{description}
+  \end{minipage}
+  &&\begin{minipage}{3cm}\small\raggedright
+      Eingangsvektor,
+      $\cn{E}_1$, $\cn{E}_2$ sind die beiden
+      anderen Zeiger aus
+      \{$\cn{I}_1$, $\cn{I}_2$, $\cn{U}_1$, $\cn{U}_2$\}
+   \end{minipage}
+   &&\begin{minipage}{1.5cm}\small\raggedright
+      Vektor der festen Quellen
+    \end{minipage}  \\
+  \downarrow  &&  \downarrow \\
+  \text{\small Rechnet man aus}
+  &&\text{\small Gibt man vor}
+  \end{array}\]
+
+\paragraph{Vorgehensweise:}
+\begin{enumerate}[label=\arabic*)]
+  \item {\boldmath$\cn{Q}_1$, $\cn{Q}_2$} bestimmen:
+    Setze $\cn{E}_1 = \cn{E}_2 \stackrel{!}{=} 0
+    \Rightarrow \begin{pmatrix}\cn{A}_1\\\cn{A}_2\end{pmatrix}
+    =\begin{pmatrix}\cn{Q}_1\\\cn{Q}_2\end{pmatrix}$
+    \begin{example}
+      \begin{tabular}[t]{ll}
+        $\cn{E}_1$ ist eine Spannung: & KS an Tor 1!  \\
+        $\cn{E}_2$ ist ein Strom:     & LL an Tor 2!  \\
+      \end{tabular}
+    \end{example}
+
+  \item {\boldmath$\cn{M}_{11}$, $\cn{M}_{21}$} bestimmen:
+    Alle festen Quellen $\stackrel{!}{=} 0 \Rightarrow \cn{Q}_1, \cn{Q}_2 = 0$
+    
+    $\cn{E}_2 \stackrel{!}{=} 0$
+    \[\Rightarrow\begin{pmatrix}\cn{A}_1\\\cn{A}_2\end{pmatrix}
+      = \begin{pmatrix}
+          \cn{M}_{11}\cdot\cn{E}_1\\
+          \cn{M}_{21}\cdot\cn{E}_1
+        \end{pmatrix}
+      \Rightarrow\begin{aligned}
+        \cn{M}_{11} = \left.\frac{\cn{A}_1}{\cn{E}_1}\right|_{
+          \cn{Q}_1=\cn{Q}_2=\cn{E}_2\stackrel{!}{=}0}\\
+        \cn{M}_{21} = \left.\frac{\cn{A}_2}{\cn{E}_1}\right|_{
+          \cn{Q}_1=\cn{Q}_2=\cn{E}_2\stackrel{!}{=}0}
+      \end{aligned}\]
+
+%     $\rightarrow \cn{E}_1\colon$
+%     \begin{tabular}{@{}ll@{}}Stromquelle\\Spannungsquelle\end{tabular}
+%     einzeichnen
+% 
+%     $\cn{E}_2$, alle festen
+%     \begin{tabular}{@{}l@{}}Spannungsquellen\\Stromquellen\end{tabular}
+%     werden zu
+%     \begin{tabular}{@{}l@{}}KS\\LL\end{tabular}
+    
+    \begin{tabular}{l@{\,\,:\quad}l}
+      $\cn{E}_1$ & \begin{tabular}{@{}ll@{}}Stromquelle\\Spannungsquelle\end{tabular}
+      einzeichnen\\
+      $\cn{E}_2$, alle festen
+    \begin{tabular}{@{}l@{}}SPQ\\STQ\end{tabular} &
+      werden zu
+    \begin{tabular}{@{}l@{}}KS\\LL\end{tabular}
+    \end{tabular}
+
+
+  \item {\boldmath$\cn{M}_{12}$, $\cn{M}_{22}$} bestimmen:
+    Alle festen Quellen $\stackrel{!}{=} 0 \Rightarrow \cn{Q}_1$, $\cn{Q}_2=0$
+    
+    $\cn{E}_1 \stackrel{!}{=} 0$
+    \[\Rightarrow\begin{pmatrix}\cn{A}_1\\\cn{A}_2\end{pmatrix}
+      = \begin{pmatrix}
+          \cn{M}_{12}\cdot\cn{E}_2\\
+          \cn{M}_{22}\cdot\cn{E}_2
+        \end{pmatrix}
+      \Rightarrow\begin{aligned}
+          \cn{M}_{12} = \left.\frac{\cn{A}_1}{\cn{E}_2}\right|_{
+            \cn{Q}_1=\cn{Q}_2=\cn{E}_1\stackrel{!}{=}0} \\
+          \cn{M}_{22} = \left.\frac{\cn{A}_2}{\cn{E}_2}\right|_{
+            \cn{Q}_1=\cn{Q}_2=\cn{E}_1\stackrel{!}{=}0}
+        \end{aligned}
+    \]
+% 
+%     $\cn{E}_1$, alle festen Quellen werden zu
+%       \begin{tabular}{l}
+%         KS\\LL
+%       \end{tabular}
+% 
+%     $\rightarrow \cn{E}_2\colon$
+%       \begin{tabular}{@{}ll@{}}Stromquelle\\Spannungsquelle\end{tabular} einzeichnen
+      
+    \begin{tabular}{l@{\,\,:\quad}l}
+      $\cn{E}_1$, alle festen
+      \begin{tabular}{@{}l@{}}SPQ\\STQ\end{tabular} &
+      werden zu
+      \begin{tabular}{@{}l@{}}KS\\LL\end{tabular}\\
+      $\cn{E}_2$ & \begin{tabular}{@{}ll@{}}Stromquelle\\Spannungsquelle\end{tabular}
+      einzeichnen
+    \end{tabular}
+\end{enumerate}
+
